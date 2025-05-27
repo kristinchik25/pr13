@@ -117,4 +117,33 @@ JOIN table2 t2 ON t1.id1 = t2.id1;
 
 ## 13.7 Реализовать запросы с использованием объединений, группировки, вложенного подзапроса. Экспортировать план в файл, используя psql -qAt -f explain.sql > analyze.json
 
+````
+SELECT t1.id1, t1.gen1, t2.gen2
+FROM table1 t1
+JOIN table2 t2 ON t1.id1 = t2.id1;
+````
+## Результат JOIN
+![image](https://github.com/user-attachments/assets/ce6fd7c7-1278-4593-aed4-814fcb0f1588)
+
+
+````
+SELECT gen1, COUNT(*) AS total
+FROM table1
+GROUP BY gen1;
+````
+## Результат GROUP BY
+![image](https://github.com/user-attachments/assets/0f0d4457-7deb-4538-b127-c4e3a1c2b2dc)
+
+````
+SELECT *
+FROM table1
+WHERE id1 IN (
+    SELECT id1
+    FROM table2
+    WHERE id2 > 1000
+);
+````
+## Результат подзапроса
+![image](https://github.com/user-attachments/assets/e87119a5-ab90-4e3f-9f5d-b54c39c46a0c)
+
 ## Выводы
