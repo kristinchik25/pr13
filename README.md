@@ -52,26 +52,19 @@ FROM pg_foreign_table;
 
 
 ## 13.4 Сгенерируйте данные и вставьте их в таблицы(табл1-200.000, табл2-400.000 данных).
-Данные для первой таблицы
+Данные для первой таблицы, данный код предоставлен в самой лабораторной работе 
+
 ````
-INSERT INTO table1 (id1, id2, gen1, gen2)
-SELECT 
-    gen AS id1,
-    (gen + 1000000) AS id2, -- делаем id2 уникальным
-    ('spec' || (gen % 10 + 1)) AS gen1, -- ограничим число вариантов специальностей
-    (gen::TEXT || '_info') AS gen2
+INSERT INTO table1
+SELECT gen, gen, gen::text AS text1, gen::text AS text2
 FROM generate_series(1, 200000) AS gen;
 ````
-Данные для второй таблицы
 ````
-INSERT INTO table2 (id1, id2, gen1, gen2)
-SELECT 
-    gen AS id1,
-    (gen + 2000000) AS id2,
-    ('spec' || (gen % 10 + 1)) AS gen1,
-    (gen::TEXT || '_info') AS gen2
+INSERT INTO table2
+SELECT gen, gen, gen::text AS text1, gen::text AS text2
 FROM generate_series(1, 400000) AS gen;
 ````
+
 Коды для проверки
 ````
 SELECT COUNT(*) FROM table1;
